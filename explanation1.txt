@@ -1,0 +1,21 @@
+Approach to DNS Injection
+I designed this DNS packet injector to intercept and respond to DNS queries by constructing custom response packets. My approach involved capturing DNS requests on a specified network interface, examining the queried domain, and then forging a DNS response with an IP address either from a predefined hostname-IP mapping file or my machine's IP as a fallback.
+
+To achieve this, the forge_and_send_response function performs three main tasks:
+
+1. Reversing IPs and Ports: I swapped the source and destination IP and port values from the original query, making the response appear legitimate as if it came from the requested DNS server.
+2. Setting DNS Flags: I set the qr flag to indicate a response, the aa flag to mark it as authoritative, and copied the original query ID to ensure it matched the request.
+3. Adding the Answer Section: Here, I included the queried domain name, set a default TTL of 300 seconds, and filled in the selected IP address.
+
+
+
+Testing Process
+Testing was a bit of a journey. Initially, I tried running the injector locally on my Windows machine, but I ran into several issues. For one, getting the program to recognize my network interface was tricky; instead of user-friendly names, the interface was identified by long, cryptic IDs (like {E7D33D45-87B3-4C26-886C-EAB51C501F02}), which didn’t make setup easy. 
+After multiple attempts, I decided to set up a virtual network environment using Linux-based virtual machines (VMs). This setup was much more stable and allowed me to manage the network configuration precisely, making it possible to capture DNS queries and successfully test packet injection. Using tools like dig and nslookup, I confirmed that the injector was intercepting DNS requests and sending back the forged IPs as expected.
+
+
+Resources
+
+Scapy Documentation: https://scapy.readthedocs.io/
+Python Network Programming Guides
+Overview of DNS Protocol: https://datatracker.ietf.org/doc/html/rfc1035

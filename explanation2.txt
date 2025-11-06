@@ -1,0 +1,9 @@
+In implementing the DNS poisoning detector, I focused on capturing network traffic in promiscuous mode to monitor DNS responses. The core of the detection logic involved maintaining a cache of DNS responses indexed by transaction ID, allowing for easy comparison between legitimate and potentially spoofed responses for the same domain name. When a DNS response was captured, the program checked if a prior response with the same transaction ID existed in the cache. If a difference in IP addresses was detected—specifically, if the current response included IPs not present in the previous response—an alert was triggered, indicating a potential DNS poisoning attempt. 
+
+I tested the tool using pcap files containing DNS injection attacks, which successfully raised alerts and logged the details to a file named attack_log.txt. This approach helped mitigate false positives by distinguishing between legitimate load balancing responses and actual spoofing attempts. Throughout the development, I referred to various online resources for guidance on packet sniffing, DNS protocols, and Scapy usage, including the Scapy documentation, tutorials on network traffic analysis, and academic papers on DNS security vulnerabilities.
+
+Online Resources
+http://scapy.readthedocs.io/en/latest/
+http://tools.ietf.org/html/rfc1035
+http://www.acs.com.hk/en/products/1220/acr38-smart-card-reader/
+http://www.kali.org/tutorials/scapy-packet-manipulation/

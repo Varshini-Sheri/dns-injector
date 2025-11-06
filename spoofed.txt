@@ -1,0 +1,60 @@
+Overview of DNS Responses
+DNS (Domain Name System) responses are structured in a way that includes several key components, most notably the header and answer sections. Each DNS packet contains critical information, such as the transaction ID (TXID), the question section detailing the query, the answer section providing the response, and additional sections that contribute to resolving domain queries effectively.
+
+Methodology
+
+1.Capture and Analyze DNS Packets: I used Wireshark to capture and analyze the contents of the injection.pcap file, to observe both legitimate and spoofed DNS responses in detail.
+
+2. Identify Key Fields: I focused on essential fields and headers present in the DNS responses, carefully noting both the similarities and discrepancies that could help distinguish between authentic and forged responses.
+
+
+Key Fields in DNS Responses
+Below are the critical fields typically present in a DNS response:
+
+1. Header Section:
+
+a. Transaction ID (TXID): A unique identifier for each DNS query. Legitimate and spoofed responses for the same query will have the same TXID.
+b. Flags: Indicate whether the message is a query or response (QR flag), the operation code (Opcode), and response codes (RCODE).
+c. Question Count: The number of questions asked (should be 1 for a typical response).
+Answer Count: The number of answers provided.
+
+2. Question Section:
+
+a. QNAME: The domain name being queried.
+b. QTYPE: The type of DNS record being requested (e.g., A, AAAA, MX).
+c. QCLASS: The class of the query (usually IN for Internet).
+
+3. Answer Section:
+
+a. Name: The domain name being answered.
+b. Type: The type of DNS record (e.g., A for IPv4 addresses).
+c. TTL: Time-to-live value, indicating how long the response can be cached.
+d. Data Length: Length of the data field.
+e. RDATA: The actual data returned, which could be an IP address or other information.
+
+
+
+Observations from the Analysis
+
+
+1. Transaction ID (TXID):
+
+Legitimate Responses: The TXID is unique for each query and corresponds to the query sent.
+Spoofed Responses: Often share the same TXID as the legitimate response they are trying to spoof, making them appear legitimate at first glance.
+
+
+2. Flags:
+
+The QR flag should be set to 1 for responses, which is consistent in both legitimate and spoofed responses.
+The RCODE field in legitimate responses will typically be 0 (No error) if the query is successful, while spoofed responses may also show 0 or other error codes, but may not match the expected response.
+
+3.Question Section:
+
+The QNAME and QTYPE fields should match in both legitimate and spoofed responses, as they are derived from the original query.
+
+
+4.Answer Section:
+
+Legitimate Responses: Contain valid IP addresses corresponding to the queried domain. The IPs are usually from known authoritative DNS servers.
+Spoofed Responses: May include IP addresses that do not correspond to the requested domain. They often redirect traffic to malicious sites.
+TTL Values: Legitimate responses may have standard TTL values (e.g., 300 seconds), while spoofed responses may exhibit unusually low or high TTL values.

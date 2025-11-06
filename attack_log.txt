@@ -1,0 +1,17 @@
+October 28 2024 23:32:13
+TXID 0x98e9 Request foo.example.com
+Answer1 [Legit IPs: ]
+Answer2 [Malicious IPs: 10.6.6.6]
+
+October 28 2024 23:32:13
+TXID 0x4a63 Request www.cs.uic.edu
+Answer1 [Legit IPs: 131.193.32.29]
+Answer2 [Malicious IPs: 10.6.6.8]
+
+October 28 2024 23:32:13
+TXID 0x169c Request bar.example.com
+Answer1 [Legit IPs: ]
+Answer2 [Malicious IPs: 10.6.6.7]
+
+
+
