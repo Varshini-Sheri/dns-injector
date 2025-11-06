@@ -292,8 +292,6 @@ Understanding these attacks enables implementation of defenses:
 
 ## Ethical and Legal Considerations
 
-⚠️ **CRITICAL WARNINGS**:
-
 ### Legal Requirements
 - **Authorization Required**: Only use on networks you own or have written permission to test
 - **Federal Law**: DNS spoofing may violate Computer Fraud and Abuse Act (CFAA)
